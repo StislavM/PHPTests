@@ -25,13 +25,15 @@ class BasePageTest extends AbstractTestCase
     }
 
     /**
-     * @group first
+     * @group FacebookIntegration
      */
     public function testSuccessFacebookAuth()
     {
-        $email = $this->userData->getEmail();
-        $pass = $this->userData->getPass();
-        $someProfileData = $this->userData->getName();
+        $this->markTestIncomplete('It is needed to add facebook account data');
+        //add real Facebook user information
+        $email = '';
+        $pass = '';
+        $someProfileData = '';
 
         $this->basePage->useFacebookAuthorization($email, $pass);
         $encounterPage = new EncounterPage($this);

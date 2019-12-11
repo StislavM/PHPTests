@@ -46,9 +46,9 @@ class UserCredits
     {
         $data = [
             //todo add credits
-            self::USER_EMAIL => '***',
-            self::USER_PASS => '***',
-            self::USER_NAME => '***',
+            self::USER_EMAIL => 'testmail_id11@mail.ru',
+            self::USER_PASS => 'qwe123QWE',
+            self::USER_NAME => 'TestUserName',
         ];
 
         return $data;
