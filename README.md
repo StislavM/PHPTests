@@ -29,3 +29,8 @@ You can add some capability to **steward run**
 **--capability="enableLog:true"** - store selenoid log data to **logs/selenoid-logs/**
  
 **--capability="enableVideo:true"** - store video-records of selenium tests to **logs/video**
+
+#Opera tests
+If you want start you test in Opera browser change **/vendor/lmc/steward/src/Console/Command/RunCommand.php**
+
+You need Add **'opera' => WebDriverBrowserType::OPERA**  to **protected $supportedBrowsers array**

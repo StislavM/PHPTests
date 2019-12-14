@@ -12,7 +12,7 @@ services:
     - "../logs/video:/opt/selenoid/video/"
     - "/var/run/docker.sock:/var/run/docker.sock"
     - "../logs/selenoid_logs/:/opt/selenoid/logs/"
-    command: ["-save-all-logs" ,"-log-output-dir","/opt/selenoid/logs"]
+    command: ["-log-output-dir","/opt/selenoid/logs"]
   selenoid-ui:
     image: "aerokube/selenoid-ui:latest-release"
     network_mode: bridge
