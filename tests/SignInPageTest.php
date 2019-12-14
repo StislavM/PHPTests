@@ -34,7 +34,7 @@ class SignInPageTest extends AbstractTestCase
         $this->singInPage->clickSignInButton();
 
         $encounterPage = new EncounterPage($this);
-        $this->wd->wait(5)->until(WebDriverExpectedCondition::titleIs($encounterPage::PAGE_TITLE));
+        $encounterPage->isEncounterPageLoad();
 
         $this->assertContains('encounters', $this->wd->getCurrentURL(),
             "After Authorization we get not into encounters page!");
@@ -60,7 +60,7 @@ class SignInPageTest extends AbstractTestCase
         $this->singInPage->SelectRememberMeCheckbox();
 
         $encounterPage = new EncounterPage($this);
-        $this->wd->wait(5)->until(WebDriverExpectedCondition::titleIs($encounterPage::PAGE_TITLE));
+        $encounterPage->isEncounterPageLoad();
 
         $encounterPage->logOutButtonClick();
         $encounterPage->acceptLogOutAllert();

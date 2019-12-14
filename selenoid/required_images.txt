@@ -1,0 +1,9 @@
+selenoid/vnc:chrome_77.0
+selenoid/vnc:chrome_78.0
+selenoid/vnc:firefox_69.0
+selenoid/vnc:firefox_70.0
+selenoid/vnc:opera_64.0
+selenoid/vnc:opera_65.0
+aerokube/selenoid:latest-release
+aerokube/selenoid-ui:latest-release
+selenoid/video-recorder:latest-release
