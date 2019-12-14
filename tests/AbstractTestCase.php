@@ -42,16 +42,6 @@ abstract class AbstractTestCase extends \Lmc\Steward\Test\AbstractTestCase
         if (ConfigProvider::getInstance()->env === 'production') {
             $this->warn('The tests are run against production, so be careful!');
         }
-
-        //Using handless mode for Chrome if it is needed
-//        if (ConfigProvider::getInstance()->browserName == WebDriverBrowserType::CHROME) {
-//            $options = new ChromeOptions();
-//            $options->addArguments(['--headless', 'window-size=1024,768', '--no-sandbox']);
-//            $capabilities = DesiredCapabilities::chrome();
-//            $capabilities->setCapability(ChromeOptions::CAPABILITY, $options);
-//            $url = 'http://localhost:4444/wd/hub';
-//            $this->wd = RemoteWebDriver::create($url, $capabilities);
-//        }
     }
 
     /**

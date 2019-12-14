@@ -32,14 +32,14 @@ class EncounterPage extends AbstractPage
 
     public function acceptLogOutAllert()
     {
-        $this->wd->wait(10)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::ALLERT_LOGOUT_ACCEPT_BUTTON)),
+        $this->wd->wait()->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::ALLERT_LOGOUT_ACCEPT_BUTTON)),
             'It is no confirm button in allert');
         $this->findByCss(self::ALLERT_LOGOUT_ACCEPT_BUTTON)->click();
     }
 
     public function dismissLogOutAllert()
     {
-        $this->wd->wait(10)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::ALLERT_LOGOUT_ACCEPT_BUTTON)),
+        $this->wd->wait()->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::ALLERT_LOGOUT_ACCEPT_BUTTON)),
             'It is no dismiss button in allert');
         $this->findByCss(self::ALLERT_LOGOUT_DISMISS_BUTTON)->click();
     }
@@ -59,7 +59,7 @@ class EncounterPage extends AbstractPage
         $UserInfo = $this->findByCss(self::SIDEBAR_USER_INFO);
         $action->moveToElement($UserInfo)->perform();
 
-        $this->wd->wait(20)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::LOGOUT_BUTTON)),
+        $this->wd->wait()->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::LOGOUT_BUTTON)),
             'It is no logout button');
         $this->findByCss(self::LOGOUT_BUTTON)->click();
     }

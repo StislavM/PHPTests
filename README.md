@@ -9,11 +9,8 @@ http://localhost:8080 - Graphical user interface for Selenoid project
 http://localhost:4444/status - Selenoid Statistic for Grafana 
 
 # Deploy Selenoid
-1. Replace **{PWD}** in **selenoid/.env** with absolute pass to project dir.
-2. Configure **browsers.json** if you need some special browsers or settings
-3. Add all docker images **name:tag** used in **browsers.json** to **required_images.txt**
-4. Run `sh pull_images.sh` It will pull all required docker images to your system
-5. Start `docker-compose up`
+1. Configure **browsers.json** if you need some special browsers or settings
+2. Run `sh deploy_selenoid.sh` It will pull all required docker images to your system and start selenoid
 
 # Start tests
 1. `composer install && composer dump`
@@ -26,6 +23,7 @@ for more information use
 
 #Additional
 You can add some capability to **steward run**
+
 **--capability="enableVNC:true"** - enable VNC for selenium-ui
  
 **--capability="enableLog:true"** - store selenoid log data to **logs/selenoid-logs/**

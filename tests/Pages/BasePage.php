@@ -45,11 +45,7 @@ class BasePage extends AbstractPage
     public function goToSingInPage()
     {
         $this->debug('Go to SingIn Page');
-        try {
-            $this->findByCss(self::SINGIN_BUTTON_SELECTOR)->click();
-        } catch (NoSuchElementException $e) {
-            $this->warn('It is no SingIn button');
-        }
+        $this->findByCss(self::SINGIN_BUTTON_SELECTOR)->click();
     }
 
     public function changeLanguage($language)

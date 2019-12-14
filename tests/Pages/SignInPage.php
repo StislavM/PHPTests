@@ -2,7 +2,6 @@
 
 namespace My\Pages;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 
@@ -22,11 +21,7 @@ class SignInPage extends AbstractPage
         $curentHandle = $this->wd->getWindowHandle();
         $windowHandlesBefore = $this->wd->getWindowHandles();
 
-        try {
-            $this->findByCss(self::FACEBOOK_BUTTON_SELECTOR)->click();
-        } catch (NoSuchElementException $e) {
-            $this->warn('It is no Facebook Authotization button');
-        }
+        $this->findByCss(self::FACEBOOK_BUTTON_SELECTOR)->click();
 
         $windowHandlesAfter = $this->wd->getWindowHandles();
         $newWindowHandle = array_diff($windowHandlesAfter, $windowHandlesBefore);
@@ -65,32 +60,26 @@ class SignInPage extends AbstractPage
     public function SelectRememberMeCheckbox()
     {
         $this->debug("Selecting Remember me checkbox");
-        try {
-            $checkbox = $this->findByCss(self::REMEMBER_ME_FIELD);
-            if (!($checkbox->isSelected())) {
-                $checkbox->click();
-            }
-        } catch (NoSuchElementException $e) {
-            $this->warn("It is no remember me checkbox");
+        $checkbox = $this->findByCss(self::REMEMBER_ME_FIELD);
+        if (!($checkbox->isSelected())) {
+            $checkbox->click();
         }
     }
 
     public function ClearRememberMeCheckbox()
     {
         $this->debug("Clear Remember me checkbox");
-        try {
-            $checkbox = $this->findByCss(self::REMEMBER_ME_FIELD);
-            if ($checkbox->isSelected()) {
-                $checkbox->clear();
-            }
-        } catch (NoSuchElementException $e) {
-            $this->warn("It is no remember me checkbox");
+
+        $checkbox = $this->findByCss(self::REMEMBER_ME_FIELD);
+        if ($checkbox->isSelected()) {
+            $checkbox->clear();
         }
     }
 
     public function getFormErrorMessage(): string
     {
-        $this->wd->wait(10)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::FORM_ERRORS)),'It is no failed auth ');
+        $this->wd->wait(10)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::FORM_ERRORS)),
+            'It is no failed auth ');
         $errors = $this->findMultipleByCss(self::FORM_ERRORS);
 
         return $errors[0]->getText();

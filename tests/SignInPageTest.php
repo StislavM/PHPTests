@@ -4,7 +4,6 @@ namespace My;
 
 use My\Pages\BasePage;
 use My\Pages\SignInPage;
-use Facebook\WebDriver\WebDriverExpectedCondition;
 use My\Pages\EncounterPage;
 use My\Steward\UserCredits;
 require_once __DIR__.'/../src/UsersCredits.php'; //change to autoloader
