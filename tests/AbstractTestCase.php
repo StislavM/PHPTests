@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace My;
 
-use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Lmc\Steward\ConfigProvider;
+use PHPUnit\TextUI\TestRunner;
 
 /**
  * Abstract class for custom tests, could eg. define some properties or instantiate some common components
@@ -50,6 +48,8 @@ abstract class AbstractTestCase extends \Lmc\Steward\Test\AbstractTestCase
     public function tearDown()
     {
         parent::tearDown();
-        $this->wd->quit();
+        if ($this->wd) {
+            $this->wd->quit();
+        }
     }
 }

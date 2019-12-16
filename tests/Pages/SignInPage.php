@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace My\Pages;
 
@@ -21,7 +21,7 @@ class SignInPage extends AbstractPage
         $curentHandle = $this->wd->getWindowHandle();
         $windowHandlesBefore = $this->wd->getWindowHandles();
 
-        $this->findByCss(self::FACEBOOK_BUTTON_SELECTOR)->click();
+        $this->findElementByCss(self::FACEBOOK_BUTTON_SELECTOR,'Cannot find Facebook authorization button')->click();
 
         $windowHandlesAfter = $this->wd->getWindowHandles();
         $newWindowHandle = array_diff($windowHandlesAfter, $windowHandlesBefore);
@@ -41,26 +41,26 @@ class SignInPage extends AbstractPage
 
     public function fillEmailField($email)
     {
-        $this->debug("Fill Email Field");
-        $this->findByCss(self::EMAIL_FIELD)->sendKeys($email);
+        $this->log("Fill Email field");
+        $this->findElementByCss(self::EMAIL_FIELD,'Cannot find Email input field')->sendKeys($email);
     }
 
     public function fillPassField($pass)
     {
-        $this->debug("Fill Password Field");
-        $this->findByCss(self::PASS_FIELD)->sendKeys($pass);
+        $this->log("Fill Password field");
+        $this->findElementByCss(self::PASS_FIELD,'Cannot find Pass input field')->sendKeys($pass);
     }
 
     public function clickSignInButton()
     {
-        $this->debug("Click Signin Button");
-        $this->findByCss(self::SIGNIN_BUTTON)->click();
+        $this->log("Click Signin Button");
+        $this->findElementByCss(self::SIGNIN_BUTTON,'Cannot find Signin button')->click();
     }
 
     public function SelectRememberMeCheckbox()
     {
-        $this->debug("Selecting Remember me checkbox");
-        $checkbox = $this->findByCss(self::REMEMBER_ME_FIELD);
+        $this->log("Selecting Remember me checkbox");
+        $checkbox = $this->findElementByCss(self::REMEMBER_ME_FIELD,'Cannot find Remember me checkbox');
         if (!($checkbox->isSelected())) {
             $checkbox->click();
         }
@@ -68,9 +68,9 @@ class SignInPage extends AbstractPage
 
     public function ClearRememberMeCheckbox()
     {
-        $this->debug("Clear Remember me checkbox");
+        $this->log("Clear Remember me checkbox");
 
-        $checkbox = $this->findByCss(self::REMEMBER_ME_FIELD);
+        $checkbox = $this->findElementByCss(self::REMEMBER_ME_FIELD,'Cannot find Remember me checkbox');
         if ($checkbox->isSelected()) {
             $checkbox->clear();
         }
@@ -78,15 +78,17 @@ class SignInPage extends AbstractPage
 
     public function getFormErrorMessage(): string
     {
-        $this->wd->wait(10)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::FORM_ERRORS)),
-            'It is no failed auth ');
-        $errors = $this->findMultipleByCss(self::FORM_ERRORS);
+        $this->log("Get first form error message text");
 
-        return $errors[0]->getText();
+        $this->wd->wait(10)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::FORM_ERRORS)),
+            'Cannot find form error message text');
+        $error = $this->findElementByCss(self::FORM_ERRORS,'Cannot find form error message text');
+
+        return $error->getText();
     }
 
     public function getValueAttributeOfEmailInput(): string
     {
-        return $this->findByCss(SignInPage::EMAIL_FIELD)->getAttribute('value');
+        return $this->findElementByCss(SignInPage::EMAIL_FIELD,'Cannot find Email input field')->getAttribute('value');
     }
 }

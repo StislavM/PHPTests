@@ -22,3 +22,17 @@ services:
     ports:
     - "8080:8080"
     command: ["--selenoid-uri", "http://selenoid:4444"]
+  db:
+    image: mysql:8.0
+    container_name: mysql-server-80
+    command: --default-authentication-plugin=mysql_native_password --init-file /data/database/init.sql
+    volumes:
+    - "./init.sql:/data/database/init.sql"
+    restart: always
+    environment:
+    - MYSQL_ROOT_PASSWORD=qwe123QWE
+    - MYSQL_DATABASE=test_base
+    - MYSQL_USER=test_user
+    - MYSQL_PASSWORD=qwerty
+    ports:
+    - "3306:3306"

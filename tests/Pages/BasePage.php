@@ -1,15 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: stislavm
- * Date: 08/12/2019
- * Time: 22:47
- */
+<?php declare(strict_types=1);
 
 namespace My\Pages;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\TimeOutException;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 
@@ -23,14 +15,15 @@ class BasePage extends AbstractPage
     const SINGIN_TITLE_SELECTOR = '.sign-flow__title';
     const LANGUAGE_SELECTOR = ".language-selector__label";
 
-    public function useFacebookAuthorization($email, $pass)
+    public function useFacebookAuthorization(string $email, string $pass)
     {
-        $this->debug('Try to Authorize with Facebook');
+        $this->log('Try to Authorize with Facebook');
 
         $curentHandle = $this->wd->getWindowHandle();
         $windowHandlesBefore = $this->wd->getWindowHandles();
 
-        $this->findByCss(self::FACEBOOK_BUTTON_SELECTOR)->click();
+        $this->findElementByCss(self::FACEBOOK_BUTTON_SELECTOR,
+            'Facebook Authorization button is not found on main page')->click();
 
         $windowHandlesAfter = $this->wd->getWindowHandles();
         $newWindowHandle = array_diff($windowHandlesAfter, $windowHandlesBefore);
@@ -44,26 +37,26 @@ class BasePage extends AbstractPage
 
     public function goToSingInPage()
     {
-        $this->debug('Go to SingIn Page');
-        $this->findByCss(self::SINGIN_BUTTON_SELECTOR)->click();
+        $this->log('Go to SingIn Page');
+        $this->findElementByCss(self::SINGIN_BUTTON_SELECTOR, 'Cannot find link to SingIn page')->click();
     }
 
-    public function changeLanguage($language)
+    public function changeLanguage(string $language)
     {
-        $this->debug('Try to change language');
-        $languageSelector = $this->findByCss(self::LANGUAGE_SELECTOR);
+        $this->log('Try to change language');
+        $languageSelector = $this->findElementByCss(self::LANGUAGE_SELECTOR, 'Cannot find language selector on main page');
 
         $action = $this->wd->action();
         $action->moveToElement($languageSelector)->perform();
-        $action->moveToElement($this->wd->wait(3)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::linkText($language))))
+        $action->moveToElement($this->wd->wait(3)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::linkText($language)),sprintf('Cannot find "%s" option in dropdown menu',$language)))
             ->click()
             ->perform();
     }
 
     public function getSinginTitleText(): string
     {
-        $this->debug('Get Singin Title ');
-        $text = $this->findByCss(BasePage::SINGIN_TITLE_SELECTOR)->getText();
+        $this->log('Get Singin Title');
+        $text = $this->findElementByCss(BasePage::SINGIN_TITLE_SELECTOR, 'Cannot find Singin Title text ')->getText();
 
         return $text;
     }

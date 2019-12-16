@@ -4,7 +4,9 @@
     "require": {
         "php": "^7.1",
         "lmc/steward": "dev-master",
-        "fzaninotto/faker": "~1.4"
+        "fzaninotto/faker": "~1.4",
+        "ext-mysqli": "*",
+        "ext-PDO": "*"
     },
     "require-dev": {
         "lmc/coding-standard": "^1.0"

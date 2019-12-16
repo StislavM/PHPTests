@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace My\Pages;
 
@@ -34,21 +34,21 @@ class EncounterPage extends AbstractPage
     {
         $this->wd->wait()->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::ALLERT_LOGOUT_ACCEPT_BUTTON)),
             'It is no confirm button in allert');
-        $this->findByCss(self::ALLERT_LOGOUT_ACCEPT_BUTTON)->click();
+        $this->findElementByCss(self::ALLERT_LOGOUT_ACCEPT_BUTTON,'It is no confirm button in allert')->click();
     }
 
     public function dismissLogOutAllert()
     {
         $this->wd->wait()->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::ALLERT_LOGOUT_ACCEPT_BUTTON)),
             'It is no dismiss button in allert');
-        $this->findByCss(self::ALLERT_LOGOUT_DISMISS_BUTTON)->click();
+        $this->findElementByCss(self::ALLERT_LOGOUT_DISMISS_BUTTON,'It is no dismiss button in allert')->click();
     }
 
     public function getUserName(): string
     {
         $this->openSideBar();
 
-        return $this->findByCss(self::USER_NAME)->getText();
+        return $this->findElementByCss(self::USER_NAME,'It no User name specified in sidebar')->getText();
     }
 
     public function logOutButtonClick()
@@ -56,18 +56,18 @@ class EncounterPage extends AbstractPage
         $this->openSideBar();
 
         $action = $this->wd->action();
-        $UserInfo = $this->findByCss(self::SIDEBAR_USER_INFO);
+        $UserInfo = $this->findElementByCss(self::SIDEBAR_USER_INFO,'');
         $action->moveToElement($UserInfo)->perform();
 
         $this->wd->wait()->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::LOGOUT_BUTTON)),
             'It is no logout button');
-        $this->findByCss(self::LOGOUT_BUTTON)->click();
+        $this->findElementByCss(self::LOGOUT_BUTTON,'It is no logout button')->click();
     }
 
     public function openSideBar()
     {
         $action = $this->wd->action();
-        $sideBar = $this->findByCss(self::SIDEBAR_MENU);
+        $sideBar = $this->findElementByCss(self::SIDEBAR_MENU,'It is no Sidebar element on Encounter page');
         $action->moveToElement($sideBar)->perform();
     }
 }

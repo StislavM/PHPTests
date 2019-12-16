@@ -6,7 +6,6 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Lmc\Steward\ConfigProvider;
 use Lmc\Steward\Selenium\CustomCapabilitiesResolverInterface;
 use Lmc\Steward\Test\AbstractTestCase;
-use Facebook\WebDriver\Remote\WebDriverCapabilityType;
 
 class CustomCapabilitiesResolver implements CustomCapabilitiesResolverInterface
 {

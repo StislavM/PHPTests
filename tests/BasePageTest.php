@@ -1,13 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace My;
 
 use My\Pages\BasePage;
 use My\Pages\EncounterPage;
-use My\Steward\UserCredits;
+use My\Steward\UserCredentials;
 
-require_once __DIR__ . '/../src/UsersCredits.php';
+require_once __DIR__ . '/../src/UserCredentials.php';
 
+/**
+ * Class BasePageTest
+ *
+ * @package My
+ * @group First
+ */
 class BasePageTest extends AbstractTestCase
 {
     protected $basePage;
@@ -21,26 +27,27 @@ class BasePageTest extends AbstractTestCase
     {
         $this->basePage = new BasePage($this);
         $this->wd->get(self::$baseUrl);
-        $this->userData = new UserCredits(UserCredits::REAL_USER);
+        $this->userData = new UserCredentials();
     }
 
-    /**
-     * @group FacebookIntegration
-     */
     public function testSuccessFacebookAuth()
     {
+
         $this->markTestIncomplete('It is needed to add facebook account data');
+
         //add real Facebook user information
-        $email = '';
-        $pass = '';
-        $someProfileData = '';
+        $email = $this->userData->getFacebookLogin();
+        $pass = $this->userData->getFacebookPass();
+        $userName = $this->userData->getName();
 
         $this->basePage->useFacebookAuthorization($email, $pass);
+
         $encounterPage = new EncounterPage($this);
         $encounterPage->isEncounterPageLoad();
+
         $this->assertContains('encounters', $this->wd->getCurrentURL(),
             "After Authorization we get not into encounters page!");
-        $this->assertContains($someProfileData, $encounterPage->getUserName(),
+        $this->assertContains($userName, $encounterPage->getUserName(),
             "User name on encounter page in sidebar menu doesn't match profile user name");
     }
 
@@ -61,6 +68,7 @@ class BasePageTest extends AbstractTestCase
         $this->basePage->changeLanguage($language);
 
         $this->assertContains($local, $this->wd->getCurrentURL(), "Locale in url doesn't match selected language");
+
         $titleText = $this->basePage->getSinginTitleText();
         $this->assertEquals($translation, $titleText, "Title message is not translated into selected language!");
     }

@@ -1,12 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace My;
 
 use My\Pages\BasePage;
 use My\Pages\SignInPage;
 use My\Pages\EncounterPage;
-use My\Steward\UserCredits;
-require_once __DIR__.'/../src/UsersCredits.php'; //change to autoloader
+use My\Steward\UserCredentials;
+
+require_once __DIR__ . '/../src/UserCredentials.php'; //change to autoloader
 
 class SignInPageTest extends AbstractTestCase
 {
@@ -23,13 +24,13 @@ class SignInPageTest extends AbstractTestCase
         $signInUrl = self::$baseUrl . $this->additionalUrl;
         $this->wd->get($signInUrl);
 
-        $this->userData=new UserCredits(UserCredits::REAL_USER);
+        $this->userData = new UserCredentials();
     }
 
     public function testSuccessSignIn()
     {
         $this->singInPage->fillEmailField($this->userData->getEmail());
-        $this->singInPage->fillPassField($this->userData->getPass());
+        $this->singInPage->fillPassField($this->userData->getBadooPass());
         $this->singInPage->clickSignInButton();
 
         $encounterPage = new EncounterPage($this);
@@ -43,10 +44,10 @@ class SignInPageTest extends AbstractTestCase
 
     public function testFailedSignInWithFakeCredits()
     {
+        $FakeUser = new UserCredentials();
+        $FakeUser->generateFakeUserCredentials();
 
-        $FakeUser = new UserCredits(UserCredits::FAKE_USER);
-
-        $this->singInPage->SingIn($FakeUser->getEmail(), $FakeUser->getPass());
+        $this->singInPage->SingIn($FakeUser->getEmail(), $FakeUser->getBadooPass());
 
         $this->assertContains('Неверный логин или пароль', $this->singInPage->getFormErrorMessage(),
             "Wrong failed authentication message!");
@@ -55,7 +56,7 @@ class SignInPageTest extends AbstractTestCase
     public function testRememberMeCheckBoxSaveEmailInformation()
     {
 
-        $this->singInPage->SingIn($this->userData->getEmail(), $this->userData->getPass());
+        $this->singInPage->SingIn($this->userData->getEmail(), $this->userData->getBadooPass());
         $this->singInPage->SelectRememberMeCheckbox();
 
         $encounterPage = new EncounterPage($this);
