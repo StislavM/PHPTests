@@ -12,9 +12,5 @@ docker pull aerokube/selenoid:latest-release
 docker pull aerokube/selenoid-ui:latest-release
 docker pull selenoid/video-recorder:latest-release
 
-#create .env file with video storage dir
-abspass=$PWD
-echo OVERRIDE_VIDEO_OUTPUT_DIR=${abspass%%S*d}logs/video/ > .env
-
 # start selenoid
 docker-compose up --build
