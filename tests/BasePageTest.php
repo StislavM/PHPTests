@@ -33,7 +33,7 @@ class BasePageTest extends AbstractTestCase
     public function testSuccessFacebookAuth()
     {
 
-        $this->markTestIncomplete('It is needed to add facebook account data');
+        $this->markTestIncomplete('Need add real facebook account data to base');
 
         //add real Facebook user information
         $email = $this->userData->getFacebookLogin();
