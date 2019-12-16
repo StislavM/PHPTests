@@ -8,6 +8,8 @@ http://localhost:8080 - Graphical user interface for Selenoid project
 
 http://localhost:4444/status - Selenoid Statistic for Grafana 
 
+http://localhost:4040 - Allure web interface (it read Steward XML, used only for good looking result presentation) 
+
 # Deploy Selenoid
 1. Configure **browsers.json** if you need some special browsers or settings
 2. Run `sh deploy_selenoid.sh` It will pull all required docker images to your system and start selenoid

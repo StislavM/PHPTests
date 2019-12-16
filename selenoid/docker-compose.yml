@@ -6,7 +6,8 @@ services:
     container_name: selenoid
     ports:
     - "4444:4444"
-    env_file: .env
+    environment:
+    - OVERRIDE_VIDEO_OUTPUT_DIR=${PWD}/logs/video/
     volumes:
     - "./browsers:/etc/selenoid"
     - "../logs/video:/opt/selenoid/video/"
@@ -36,3 +37,13 @@ services:
     - MYSQL_PASSWORD=qwerty
     ports:
     - "3306:3306"
+  allure:
+    image: "frankescobar/allure-docker-service"
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 1
+      KEEP_HISTORY: "TRUE"
+    ports:
+    - "4040:4040"
+    - "5050:5050"
+    volumes:
+    - ${PWD}/../logs:/app/allure-results
