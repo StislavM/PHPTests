@@ -80,7 +80,7 @@ class SignInPage extends AbstractPage
     {
         $this->log("Get first form error message text");
 
-        $this->wd->wait(10)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::FORM_ERRORS)),
+        $this->wd->wait(5)->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::FORM_ERRORS)),
             'Cannot find form error message text');
         $error = $this->findElementByCss(self::FORM_ERRORS,'Cannot find form error message text');
 
