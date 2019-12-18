@@ -67,6 +67,8 @@ class EncounterPage extends AbstractPage
     public function openSideBar()
     {
         $action = $this->wd->action();
+        $this->wd->wait()->until(WebDriverExpectedCondition::elementToBeClickable(WebDriverBy::cssSelector(self::SIDEBAR_MENU)),
+            'It is no Sidebar element on Encounter page');
         $sideBar = $this->findElementByCss(self::SIDEBAR_MENU,'It is no Sidebar element on Encounter page');
         $action->moveToElement($sideBar)->perform();
     }

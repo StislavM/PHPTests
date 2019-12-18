@@ -13,7 +13,7 @@ http://localhost:4040 - Allure web interface (it read Steward XML, used only for
 # Deploy Selenoid
 1. Configure **browsers.json** if you need some special browsers or settings
 2. Run `sh deploy_selenoid.sh` It will pull all required docker images to your system and start selenoid
-3. `docker-composer up ` in selenoid dir
+
 # Start tests
 1. `composer install && composer dump`
 2. For start test you need to do command

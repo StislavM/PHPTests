@@ -7,7 +7,7 @@ services:
     ports:
     - "4444:4444"
     environment:
-    - OVERRIDE_VIDEO_OUTPUT_DIR=${PWD}/logs/video/
+      OVERRIDE_VIDEO_OUTPUT_DIR: ${PWD}/../logs/video/
     volumes:
     - "./browsers:/etc/selenoid"
     - "../logs/video:/opt/selenoid/video/"
@@ -31,10 +31,10 @@ services:
     - "./init.sql:/data/database/init.sql"
     restart: always
     environment:
-    - MYSQL_ROOT_PASSWORD=qwe123QWE
-    - MYSQL_DATABASE=test_base
-    - MYSQL_USER=test_user
-    - MYSQL_PASSWORD=qwerty
+      MYSQL_ROOT_PASSWORD: qwe123QWE
+      MYSQL_DATABASE: test_base
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: qwerty
     ports:
     - "3306:3306"
   allure:

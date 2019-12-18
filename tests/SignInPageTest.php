@@ -9,6 +9,11 @@ use My\Steward\UserCredentials;
 
 require_once __DIR__ . '/../src/UserCredentials.php'; //change to autoloader
 
+/**
+ * Class SignInPageTest
+ *
+ * @group SignIn
+ */
 class SignInPageTest extends AbstractTestCase
 {
     protected $singInPage;
@@ -23,7 +28,6 @@ class SignInPageTest extends AbstractTestCase
         $this->singInPage = new SignInPage($this);
         $signInUrl = self::$baseUrl . $this->additionalUrl;
         $this->wd->get($signInUrl);
-
         $this->userData = new UserCredentials();
     }
 
